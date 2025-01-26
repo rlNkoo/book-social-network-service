@@ -1,5 +1,7 @@
 package com.rlnkoo.book.user;
 
+import com.rlnkoo.book.book.Book;
+import com.rlnkoo.book.history.BookTransactionHistory;
 import com.rlnkoo.book.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -48,6 +50,12 @@ public class User implements UserDetails, Principal {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
